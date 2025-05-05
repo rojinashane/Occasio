@@ -125,7 +125,7 @@ const DashboardScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate('CalendarScreen')}>
           <Ionicons name="calendar" size={24} color="#666" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('EventPlacesScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('EventPlaces')}>
           <Ionicons name="cube" size={24} color="#666" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}>
