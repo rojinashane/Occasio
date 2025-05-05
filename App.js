@@ -12,6 +12,7 @@ import AddEventScreen from './screens/AddEventScreen';
 import EventPlacesScreen from './screens/EventPlacesScreen';
 import ResidenciaScreen from './screens/ResidenciaScreen';
 import FortuneScreen from './screens/FortuneScreen';
+import LiliasScreen from './screens/LiliasScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -51,6 +52,7 @@ export default function App() {
         <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
         <Stack.Screen name="ResidenciaScreen" component={ResidenciaScreen} />
         <Stack.Screen name="FortuneScreen" component={FortuneScreen} />
+        <Stack.Screen name="LiliasScreen" component={LiliasScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
