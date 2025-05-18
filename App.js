@@ -13,6 +13,14 @@ import EventPlacesScreen from './screens/EventPlacesScreen';
 import ResidenciaScreen from './screens/ResidenciaScreen';
 import FortuneScreen from './screens/FortuneScreen';
 import LiliasScreen from './screens/LiliasScreen';
+import EventInformationScreenJohn from './screens/EventInformationScreenJohn';
+import EventInformationScreenCorporate from './screens/EventInformationScreenCorporate';
+import EventInformationScreenMissy from './screens/EventInformationScreenMissy';
+import NotificationScreen from './screens/NotificationScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import EditEventScreen from './screens/EditEventScreen';
+
+
 
 
 const Stack = createNativeStackNavigator();
@@ -52,7 +60,14 @@ export default function App() {
         <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
         <Stack.Screen name="ResidenciaScreen" component={ResidenciaScreen} />
         <Stack.Screen name="FortuneScreen" component={FortuneScreen} />
-        <Stack.Screen name="LiliasScreen" component={LiliasScreen} />
+        <Stack.Screen name="LiliasScreen" component={LiliasScreen}/>
+        <Stack.Screen name="EventInformationScreenJohn" component={EventInformationScreenJohn} />
+        <Stack.Screen name="EventInformationScreenCorporate" component={EventInformationScreenCorporate} />
+        <Stack.Screen name="EventInformationScreenMissy" component={EventInformationScreenMissy} />
+        <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="EditEventScreen" component={EditEventScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
