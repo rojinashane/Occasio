@@ -19,6 +19,7 @@ import EventInformationScreenMissy from './screens/EventInformationScreenMissy';
 import NotificationScreen from './screens/NotificationScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditEventScreen from './screens/EditEventScreen';
+import CalendarScreen from './screens/CalendarScreen';
 
 
 
@@ -67,6 +68,7 @@ export default function App() {
         <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen name="EditEventScreen" component={EditEventScreen} />
+        <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>
