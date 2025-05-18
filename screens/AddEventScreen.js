@@ -169,76 +169,77 @@ const AddEventScreen = () => {
 
         {/* Event To-Do List */}
         <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Event To-Do List</Text>
-
-          {tasks.map((task, index) => (
-            <View key={index} style={styles.todoRow}>
-              <TextInput
-                style={styles.todoInput}
-                placeholder="Task Name"
-                value={task.name}
-                onChangeText={(text) => {
-                  const updated = [...tasks];
-                  updated[index].name = text;
-                  setTasks(updated);
-                }}
-              />
-              <Menu
-                visible={task.menuVisible || false}
-                onDismiss={() => {
-                  const updated = [...tasks];
-                  updated[index].menuVisible = false;
-                  setTasks(updated);
-                }}
-                anchor={
+                  <Text style={styles.sectionTitle}>Event To-Do List</Text>
+        
+                  {tasks.map((task, index) => (
+                    <View key={index} style={styles.todoRow}>
+                      <TextInput
+                        style={styles.todoInput}
+                        placeholder="Task Name"
+                        value={task.name}
+                        onChangeText={(text) => {
+                          const updated = [...tasks];
+                          updated[index].name = text;
+                          setTasks(updated);
+                        }}
+                      />
+                      <Menu
+                        visible={task.menuVisible || false}
+                        onDismiss={() => {
+                          const updated = [...tasks];
+                          updated[index].menuVisible = false;
+                          setTasks(updated);
+                        }}
+                        anchor={
+                          <TouchableOpacity
+                            style={styles.todoDropdown}
+                            onPress={() => {
+                              const updated = [...tasks];
+                              updated[index].menuVisible = true;
+                              setTasks(updated);
+                            }}
+                          >
+                            <Text>{task.status}</Text>
+                            <Ionicons name="chevron-down" size={16} color="#333" />
+                          </TouchableOpacity>
+                        }
+                      >
+                        {['Planning', 'In Progress', 'Done'].map((status) => (
+                          <Menu.Item
+                            key={status}
+                            title={status}
+                            onPress={() => {
+                              const updated = [...tasks];
+                              updated[index].status = status;
+                              updated[index].menuVisible = false;
+                              setTasks(updated);
+                            }}
+                          />
+                        ))}
+                      </Menu>
+                      <TouchableOpacity
+                        style={styles.todoDeleteButton}
+                        onPress={() => {
+                          const updated = tasks.filter((_, i) => i !== index);
+                          setTasks(updated);
+                        }}
+                      >
+                        <Ionicons name="close" size={20} color="#fff" />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+        
                   <TouchableOpacity
-                    style={styles.todoDropdown}
-                    onPress={() => {
-                      const updated = [...tasks];
-                      updated[index].menuVisible = true;
-                      setTasks(updated);
-                    }}
+                    style={styles.todoAddButtonFull}
+                    onPress={() =>
+                      setTasks([...tasks, { name: '', status: 'Planning', menuVisible: false }])
+                    }
                   >
-                    <Text>{task.status}</Text>
-                    <Ionicons name="chevron-down" size={16} color="#333" />
+                    <Ionicons name="add-circle-outline" size={20} color="#00686F" />
+                    <Text style={styles.todoAddButtonText}>Add Task</Text>
                   </TouchableOpacity>
-                }
-              >
-                {['Planning', 'In Progress', 'Done'].map((status) => (
-                  <Menu.Item
-                    key={status}
-                    title={status}
-                    onPress={() => {
-                      const updated = [...tasks];
-                      updated[index].status = status;
-                      updated[index].menuVisible = false;
-                      setTasks(updated);
-                    }}
-                  />
-                ))}
-              </Menu>
-              <TouchableOpacity
-                style={styles.todoDeleteButton}
-                onPress={() => {
-                  const updated = tasks.filter((_, i) => i !== index);
-                  setTasks(updated);
-                }}
-              >
-                <Ionicons name="close" size={20} color="#fff" />
-              </TouchableOpacity>
-            </View>
-          ))}
-
-          <TouchableOpacity
-            style={styles.todoAddButtonFull}
-            onPress={() =>
-              setTasks([...tasks, { name: '', status: 'Planning', menuVisible: false }])
-            }
-          >
-            <Ionicons name="add-circle-outline" size={20} color="#00686F" />
-            <Text style={{ color: '#00686F', marginLeft: 6 }}>Add Task</Text>
-          </TouchableOpacity>
-        </View>
+        
+                </View>
 
         {/* RSVP */}
         <View style={styles.cardRow}>
@@ -396,37 +397,71 @@ const styles = StyleSheet.create({
     padding: 16,
     marginTop: 6,
   },
-  todoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 10,
-  },
-  todoInput: {
+ todoTextInputRow: {
     flex: 1,
+    height: 40,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
-    padding: 10,
+    paddingHorizontal: 10,
     backgroundColor: 'white',
   },
-  todoDropdown: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: 'white',
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
+  invalidInput: {
+    borderColor: 'red',
   },
-  todoDeleteButton: {
-    backgroundColor: 'red',
-    padding: 8,
-    borderRadius: 8,
-  },
-  todoAddButtonFull: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 12,
-  },
-});
+  todoRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: 12,
+  gap: 8,
+},
+
+
+todoInput: {
+  flex: 1,
+  borderWidth: 1,
+  borderColor: '#e53935', // red border for empty/initial state
+  borderRadius: 8,
+  padding: 10,
+  backgroundColor: 'white',
+},
+
+todoDropdown: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 10,
+  paddingVertical: 6,
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 8,
+  backgroundColor: 'white',
+  minWidth: 120,
+  justifyContent: 'space-between',
+},
+
+todoDeleteButton: {
+  backgroundColor: '#e53935',
+  padding: 8,
+  borderRadius: 8,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+
+todoAddButtonFull: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#fff',
+  paddingVertical: 10,
+  paddingHorizontal: 16,
+  marginTop: 10,
+},
+
+todoAddButtonText: {
+  color: '#00686F',
+  marginLeft: 6,
+  fontSize: 16,
+  fontWeight: '600',
+},
+
+},
+);
