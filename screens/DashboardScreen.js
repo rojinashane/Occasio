@@ -66,7 +66,10 @@ const DashboardScreen = ({ navigation }) => {
         {/* Featured Event Places */}
         <Text style={styles.sectionTitle}>Featured Event Places</Text>
         <View style={styles.featuredPlaces}>
-          <View style={[styles.featuredCard, styles.selectedCard]}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ResidenciaScreen')}
+            style={styles.featuredCard}
+          >
             <View style={styles.imageContainer}>
               <Image
                 source={require('../assets/eventplaces/residencia.jpg')}
@@ -75,9 +78,12 @@ const DashboardScreen = ({ navigation }) => {
               <Ionicons name="cube" size={24} color="#ffffff" style={styles.cubeIcon} />
             </View>
             <Text style={styles.placeLabel}>Residencia Del Hamor</Text>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.featuredCard}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('FortuneScreen')}
+            style={styles.featuredCard}
+          >
             <View style={styles.imageContainer}>
               <Image
                 source={require('../assets/eventplaces/lilias.jpg')}
@@ -86,27 +92,38 @@ const DashboardScreen = ({ navigation }) => {
               <Ionicons name="cube" size={24} color="#ffffff" style={styles.cubeIcon} />
             </View>
             <Text style={styles.placeLabel}>Fortune's Hall Event Center</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* Featured Events */}
-        <Text style={styles.sectionTitle}>Featured Events</Text>
-        {[
-          { title: 'Johnson Wedding', date: 'May 15, 2025', color: '#00c2ff' },
-          { title: 'Corporate Retreat', date: 'May 25, 2025', color: '#f9c74f' },
-          { title: 'Birthday Celebration', date: 'June 3, 2025', color: '#ff6b6b' },
-          { title: 'Johnson Wedding', date: 'May 15, 2025', color: '#00c2ff' },
-        ].map((event, index) => (
-          <View key={index} style={styles.eventCard}>
-            <View style={styles.eventInfo}>
-              <View style={[styles.dot, { backgroundColor: event.color }]} />
-              <View>
-                <Text style={styles.eventTitle}>{event.title}</Text>
-                <Text style={styles.eventDate}>{event.date}</Text>
-              </View>
-            </View>
-          </View>
-        ))}
+        <Text style={styles.sectionTitle}>Upcoming Events</Text>
+        <View style={styles.featuredEventsContainer}>
+  <TouchableOpacity
+    onPress={() => navigation.navigate('EventInformationScreenJohn')}
+    style={[styles.eventCard, { borderLeftColor: '#00c2ff', borderLeftWidth: 4 }]}
+  >
+    <View style={styles.eventRow}>
+      <Ionicons name="heart" size={24} color="#00c2ff" style={{ marginRight: 10 }} />
+      <View>
+        <Text style={styles.eventTitle}>John and Emily's Wedding</Text>
+        <Text style={styles.eventDate}>May 27, 2025</Text>
+      </View>
+    </View>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() => navigation.navigate('EventInformationScreenCorporate')}
+    style={[styles.eventCard, { borderLeftColor: '#f9c74f', borderLeftWidth: 4 }]}
+  >
+    <View style={styles.eventRow}>
+      <Ionicons name="briefcase" size={24} color="#f9c74f" style={{ marginRight: 10 }} />
+      <View>
+        <Text style={styles.eventTitle}>Corporate Retreat</Text>
+        <Text style={styles.eventDate}>May 30, 2025</Text>
+      </View>
+    </View>
+  </TouchableOpacity>
+</View>
       </ScrollView>
 
       {/* Floating Add Button */}
@@ -137,36 +154,33 @@ const DashboardScreen = ({ navigation }) => {
       </View>
 
       {/* Slide-in Menu */}
-        {menuVisible && (
-          <Pressable style={styles.overlay} onPress={closeMenu}>
-            <Animated.View style={[styles.menuContainer, { transform: [{ translateX: slideAnim }] }]}>
-              {/* Help Button */}
-              <TouchableOpacity
-                style={styles.menuItem}
-                onPress={() => {
-                  closeMenu();
-                  // Add your help logic here (e.g., open Help screen or alert)
-                  alert('For assistance, contact support@occasio.com');
-                }}
-              >
-                <Ionicons name="help-circle-outline" size={22} color="#00686F" />
-                <Text style={styles.menuText}>Help</Text>
-              </TouchableOpacity>
+      {menuVisible && (
+        <Pressable style={styles.overlay} onPress={closeMenu}>
+          <Animated.View style={[styles.menuContainer, { transform: [{ translateX: slideAnim }] }]}>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                closeMenu();
+                alert('For assistance, contact support@occasio.com');
+              }}
+            >
+              <Ionicons name="help-circle-outline" size={22} color="#00686F" />
+              <Text style={styles.menuText}>Help</Text>
+            </TouchableOpacity>
 
-              {/* Log Out Button */}
-              <TouchableOpacity
-                style={styles.menuItem}
-                onPress={() => {
-                  closeMenu();
-                  navigation.replace('Landing');
-                }}
-              >
-                <Ionicons name="log-out-outline" size={22} color="red" />
-                <Text style={[styles.menuText, { color: 'red' }]}>Log Out</Text>
-              </TouchableOpacity>
-            </Animated.View>
-          </Pressable>
-        )}
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                closeMenu();
+                navigation.replace('Landing');
+              }}
+            >
+              <Ionicons name="log-out-outline" size={22} color="red" />
+              <Text style={[styles.menuText, { color: 'red' }]}>Log Out</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </Pressable>
+      )}
     </View>
   );
 };
@@ -232,8 +246,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     overflow: 'hidden',
-    borderWidth: 2,
-    borderColor: 'transparent',
     elevation: 2,
   },
   imageContainer: {
@@ -256,22 +268,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
   },
+  featuredEventsContainer: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
   eventCard: {
     backgroundColor: 'white',
     padding: 15,
     borderRadius: 10,
-    marginTop: 10,
+    marginBottom: 10,
     elevation: 2,
   },
-  eventInfo: {
+  eventRow: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginRight: 10,
   },
   eventTitle: {
     fontSize: 16,
